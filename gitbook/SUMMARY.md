@@ -1,6 +1,5 @@
 # Summary
 
-* [Overview](README.md)
 * [1. Introduction](introduction.md)
 * [2. Mission and Vision](mission-and-vision.md)
 * [3. The Problem](the-problem.md)
