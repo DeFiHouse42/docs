@@ -1,15 +1,25 @@
-# 12. Governance
+# 🏛 Governance (Future Phase)
 
-DeFi House governance is built on the belief that **education precedes influence**.
+> [!IMPORTANT]  
+> Governance is **not active today**  
+> It will be activated only once:  
+> 1. Token is launched  
+> 2. Protocol is stable  
+> 3. Community is prepared  
 
-DFH token holders will govern:
-- Protocol parameters  
-- Asset listings  
-- Risk settings  
-- Treasury usage  
-- Incentive programs  
+---
 
-Governance rolls out progressively:
-1. Advisory and signaling  
-2. On-chain parameter voting  
-3. Full DAO-style governance (long-term)  
+# 🎯 Governance Principles
+- Education precedes decision-making  
+- Responsible parameter changes  
+- Avoid governance capture  
+- Gradual decentralization  
+
+---
+
+# 📚 Future Governance Features (Planned)
+- Parameter voting  
+- Collateral listings  
+- LTV limits  
+- Fee model adjustments  
+- Treasury program approvals  

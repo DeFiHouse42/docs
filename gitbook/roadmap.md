@@ -1,25 +1,59 @@
-# 11. Roadmap
+# 🛣 Roadmap  
+_Development stages — honestly stated_
 
-## Phase 1 — Foundation (Complete)
-- Workshops, spaces, community building  
-- Brand establishment  
+> [!WARNING]  
+> Timelines are **fluid** and depend on audits, security, and market conditions.
 
-## Phase 2 — P2P Lending MVP
-- BNB Chain launch  
-- Lender-defined fixed-term loans  
-- DFH staking + basic utility  
+---
 
-## Phase 3 — Risk & Insurance Layer
-- Expanded assets  
-- Insurance and reputation systems  
-- Fee routing to DFH stakeholders  
+# 📌 Phase 1 — Community Foundation (Active)
+- Running workshops  
+- X Spaces  
+- Telegram calls  
+- Documentation & research  
+- Protocol architecture design  
 
-## Phase 4 — Cross-Chain Expansion
-- Chain integrations (ETH L2s, etc.)  
-- Cross-chain loan discovery  
-- Later: cross-chain loan settlement  
+> [!SUCCESS]  
+> **This phase is operating today.**
 
-## Phase 5 — Governance
-- Parameter control  
+---
+
+# 📌 Phase 2 — DFH Token Launch (Next Milestone)
+- Token contract finalization  
+- Audit  
+- Private sale  
+- Launch + staking  
+
+---
+
+# 📌 Phase 3 — Lending Protocol MVP (BNB Chain)
+- MVP smart contracts  
+- Collateral vaults  
+- Lender orderbook  
+- Borrower matching  
+- Over-collateralization enforcement  
+- Basic fee routing  
+
+---
+
+# 📌 Phase 4 — MVP Launch & Beta Testing
+- Invite-only or limited public launch  
+- Iterative improvements  
+- Expanded asset support  
+
+---
+
+# 📌 Phase 5 — Cross-Chain Expansion (Future)
+- Multi-chain discovery  
+- Cross-chain settlements  
+- Global reputation system  
+- Cross-chain collateral  
+
+---
+
+# 📌 Phase 6 — Governance (Final Phase)
+- Parameter voting  
+- Asset listing governance  
 - Treasury management  
-- Progressive decentralization  
+
+> Governance comes **last**, not first.
