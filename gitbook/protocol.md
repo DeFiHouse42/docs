@@ -1,96 +1,182 @@
-# 🏗 The DeFi House Protocol  
-_Fixed-term, fixed-rate, over-collateralized P2P lending_
+# The DeFi House Protocol
 
-> [!IMPORTANT]  
-> **Status:**  
-> - Protocol is in the **design & planning phase**  
-> - MVP development will begin after the DFH token launch  
-> - MVP will deploy on **BNB Chain**  
+The DeFi House protocol is a planned P2P lending marketplace focused on fixed-term, fixed-rate, over-collateralized loans with no liquidations during the loan term.
+
+This section describes the intended design. It reflects a planning and specification phase, not a live implementation.
+
+{% hint style="warning" %}
+There is currently no deployed DeFi House lending protocol. Everything described here is subject to change based on design, audits, and market feedback.
+{% endhint %}
 
 ---
 
-# 🎯 Design Philosophy
+## Objectives
 
-The protocol is built upon these core principles:
+The protocol is designed with several objectives:
 
-<div style="color:#2aff80;font-weight:600">1. Predictability</div>  
-Borrowers should know exactly what they owe and when.
+- Provide a predictable borrowing experience  
+- Allow lenders to define their own risk/return profile  
+- Avoid unexpected liquidations during the loan term  
+- Start on a single chain (BNB Chain) to reduce complexity  
+- Extend, over time, to cross-chain credit and liquidity  
 
-<div style="color:#2aff80;font-weight:600">2. No Liquidations Mid-Term</div>  
-Collateral remains locked for the loan duration; no price-triggered liquidations.
+---
 
-<div style="color:#2aff80;font-weight:600">3. Lender-Defined Terms</div>  
-Lenders choose:
+## Design Principles
+
+### Fixed-Term and Fixed-Rate
+
+Borrowers should know in advance:
+
+- The principal they receive  
+- The interest they will pay  
+- The exact repayment date  
+
+This allows for planning and reduces uncertainty around variable rates.
+
+### Over-Collateralized
+
+Loans are over-collateralized by design. Borrowers deposit more value in collateral than the loan principal they receive. This is intended to protect lenders in default scenarios.
+
+Exact collateralization ratios will:
+
+- Depend on the asset  
+- Be conservative in early versions  
+- Be configurable via parameters (set initially by the team, governed later)
+
+### No Mid-Term Liquidations
+
+Many DeFi lending protocols liquidate positions when collateral prices fall. In this design:
+
+- Collateral is locked for the duration of the loan  
+- There are no automated, price-triggered liquidations during the term  
+- If the borrower does not repay at maturity, the lender gains access to the collateral as specified by the loan terms  
+
+This shifts risk management from continuous monitoring to clear up-front terms and end-of-term outcomes.
+
+### Lender-Defined Terms
+
+Lenders can define:
+
+- Loan currency  
+- Principal amount  
 - Interest rate  
-- Duration  
-- Collateral requirements  
-- Assets they accept  
+- Loan duration  
+- Required collateral ratio  
+- Accepted collateral assets  
 
-<div style="color:#2aff80;font-weight:600">4. Responsible Risk Framework</div>  
-Over-collateralization protects lenders.  
-Defaults are simple: lender receives the collateral.
-
-<div style="color:#2aff80;font-weight:600">5. Simplicity</div>  
-Straightforward UX for both borrowers and lenders.
+This allows lenders to express their own risk preferences, rather than relying on a single pooled risk model.
 
 ---
 
-# 🔄 Loan Lifecycle
+## Loan Lifecycle
 
-## 1. Lender Creates Offer
-Lender defines:
-- Rate  
-- Duration  
-- Loan size  
-- Accepted collateral  
-- LTV  
+The loan lifecycle is conceptually as follows.
 
-Offer is published on-chain.
+### 1. Lender Creates an Offer
 
-## 2. Borrower Matches Offer
-Borrower deposits collateral → receives loan principal.
+A lender specifies:
 
-## 3. Loan Term
-- No liquidations  
-- Fixed rate  
-- Borrower may repay early (with possible fee)
+- Loan asset and amount  
+- Duration (for example 7, 30, 90 days)  
+- Interest rate (expressed as a fixed amount or APR)  
+- Accepted collateral assets  
+- Required collateralization ratio (for example 150%)  
 
-## 4. Maturity
-- Borrower repays full amount → receives collateral  
-- Or defaults → lender receives collateral  
+The protocol records this as an open offer in an on-chain orderbook.
+
+### 2. Borrower Accepts an Offer
+
+A borrower reviews available offers and chooses one that matches their needs. To accept an offer, the borrower:
+
+- Deposits the required collateral  
+- Confirms the loan terms  
+
+The protocol:
+
+- Locks the collateral  
+- Transfers the loan principal to the borrower  
+- Records the loan as active with a known maturity date  
+
+### 3. During the Loan
+
+During the life of the loan:
+
+- No price-based liquidations take place  
+- The borrower may be allowed to repay early (if the design includes early repayment, this may involve a fixed penalty or fee to keep returns predictable for lenders)  
+
+### 4. Maturity and Settlement
+
+At or before maturity, the borrower can repay:
+
+- Principal plus interest  
+
+Upon full repayment:
+
+- The protocol returns the collateral to the borrower  
+
+If the borrower does not repay by the agreed maturity:
+
+- The lender can claim the collateral  
+- The protocol records the loan as defaulted  
+
+The specific mechanics for default (e.g. grace periods, partial recovery) will be defined in the implementation and may evolve over time.
 
 ---
 
-# 🔐 Collateral & Risk Management
+## Collateral and Risk
 
-> [!INFO]  
-> **MVP collateral will be conservative.**
+### Initial Collateral Types
 
-Likely candidates:
+The MVP will likely support a limited set of conservative assets as collateral, such as:
+
 - BNB  
-- Stablecoins  
-- ETH/Blue-chip L1 assets  
-- Liquid staking tokens (subject to risk analysis)
+- Selected stablecoins  
+- Possibly a limited number of blue-chip assets  
 
-Future additions:
-- LP tokens  
-- Yield-bearing collateral  
-- Cross-chain collateral with messaging guarantees  
+The choice of assets will be influenced by:
+
+- Liquidity  
+- Historical volatility  
+- On-chain integration complexity  
+
+### Collateral Ratios
+
+Collateral requirements will be set with:
+
+- A baseline minimum per asset type  
+- Lender flexibility to demand higher ratios  
+
+In early versions, collateral ratios will be intentionally conservative to reduce the risk of under-collateralization.
 
 ---
 
-# 🔗 Cross-Chain Vision (Future)
+## Cross-Chain Vision (Planned)
 
-The protocol aims to become a **cross-chain credit network**:
+In the long term, DeFi House aims to become a cross-chain credit network.
 
-Borrower on Chain B → Collateral on Chain B  
-Lender on Chain A → Capital on Chain A  
+Conceptually, this includes:
 
-> [!WARNING]  
-> This is a **future phase** and requires careful security analysis.
+- Lenders providing capital on one chain  
+- Borrowers posting collateral and drawing liquidity on another chain  
+- Synchronization of loan state across chains using secure cross-chain messaging  
+- A unified reputation framework so borrower behavior on one chain is recognized elsewhere  
 
-Benefits:
-- Unify fragmented liquidity  
-- Chain-agnostic credit history  
-- Better matching surface  
-- Efficient capital utilization  
+{% hint style="info" %}
+Cross-chain loan settlement introduces additional complexity and security considerations.  
+It is a future phase, not part of the MVP. Implementation will depend on the maturity and security posture of cross-chain messaging infrastructure available at that time.
+{% endhint %}
+
+---
+
+## Future Protocol Evolution
+
+Potential future features include:
+
+- Support for a wider range of collateral types, including LP tokens and yield-bearing assets  
+- Optional insurance pools for lenders, funded by premiums and involving DFH stakers  
+- More sophisticated borrower reputation scoring  
+- Refinancing and roll-over mechanisms  
+- Configurable loan templates for specific use cases (for example, treasury financing for projects)  
+
+All of these are conceptual at this stage and will depend on user demand, technical feasibility, and risk assessment.
